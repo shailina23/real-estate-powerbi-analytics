@@ -23,6 +23,12 @@ The intended grain and relationship are:
 - `fact_property_monthly`: one row per `property_id` and `month`.
 - Join `dim_property[property_id]` to `fact_property_monthly[property_id]` as a one-to-many relationship.
 
+## Power BI measures
+
+The [DAX measures](powerbi/measures.dax) include gross and collected rent, collection rate, average monthly occupancy, property count, gross rent per square foot, and an annualized gross rent run rate. The annualized measure uses average monthly gross rent across the months in the current filter context, multiplied by 12.
+
+Occupancy is stored as a ratio from 0 to 1. Format the occupancy and collection rate measures as percentages, and do not sum occupancy values.
+
 ## Suggested Power BI model
 
 Load both CSVs and create a one-to-many relationship:
@@ -30,8 +36,6 @@ Load both CSVs and create a one-to-many relationship:
 ```text
 dim_property[property_id]  1 ─── *  fact_property_monthly[property_id]
 ```
-
-Treat occupancy fields as ratios/percentages. Do not sum them; choose and document an averaging method appropriate to the question. Rent amounts can be summed across selected properties and months. A portfolio collection rate can be calculated as total collected rent divided by total gross rent, with a zero-denominator check.
 
 ## Analysis ideas
 
@@ -42,4 +46,4 @@ Treat occupancy fields as ratios/percentages. Do not sum them; choose and docume
 
 ## Current repository contents
 
-This staged project currently includes the README, synthetic CSV datasets, and SQL model draft. DAX measures, dashboard documentation, and a Power BI report are not included in this release.
+This staged project currently includes the README, synthetic CSV datasets, a SQL model draft, and DAX measures. Dashboard documentation and a Power BI report are not included in this release.
