@@ -1,5 +1,5 @@
--- Power BI measures for the synthetic property portfolio model
--- Format occupancy and collection rate measures as percentages in Power BI.
+-- Measures for the synthetic property portfolio model.
+-- Format the two rate measures as percentages in Power BI.
 
 Gross Rent =
 SUM ( fact_property_monthly[gross_rent] )
@@ -16,7 +16,7 @@ AVERAGE ( fact_property_monthly[occupancy_pct] )
 Property Count =
 DISTINCTCOUNT ( dim_property[property_id] )
 
--- Average gross rent per property-month square foot in the current filter context.
+-- Period rent divided by the area represented in each property-month row.
 Gross Rent per Sq Ft =
 DIVIDE (
     [Gross Rent],
@@ -26,7 +26,7 @@ DIVIDE (
     )
 )
 
--- Annualized run rate based on the average monthly gross rent in the current context.
+-- Run rate based on average monthly gross rent in the current filter context.
 Annualized Gross Rent Run Rate =
 VAR SelectedMonths =
     DISTINCTCOUNT ( fact_property_monthly[month] )
